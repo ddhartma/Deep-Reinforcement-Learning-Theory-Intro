@@ -1,4 +1,9 @@
 [image1]: assets/examples.png "image1"
+[image2]: assets/drl_concept.png "image2"
+[image3]: assets/episodic_conti.png "image3"
+
+
+
 
 # Deep Reinforcement Learning Theory - Part 1 
 
@@ -10,6 +15,8 @@
 - [Udacity DRL Github Repository](#uda_git_repo)
 - [Deep Reinforcement Learning Nanodegree Links](#uda_nano_drl_links)
 - [Elements of Reinforcement Learning](#rl_elements)
+- [The Setting](#setting)
+- [Episodic vs. Continuing Tasks](#episodic_continuous)
 - [Setup Instructions](#Setup_Instructions)
 - [Acknowledgments](#Acknowledgments)
 - [Further Links](#Further_Links)
@@ -31,7 +38,7 @@ Examples:
 - **Google Deep Mind** a piece of code to show superhuman performance at many Atari games,
 and the same algorithms that we used to play games can be adapted for **robotics**
     ![image1]
- 
+
 ## Overview <a name="overview"></a>
 - Foundations of Reinforcement Learning: 
     - How to define real-world problems as **Markov Decision Processes (MDPs)**
@@ -82,6 +89,37 @@ and the same algorithms that we used to play games can be adapted for **robotics
     - a ***reward*** signal - the agent’s sole objective is to maximize the total reward it receives over the long run. If an action selected by the policy is followed by low reward, then the policy may be changed to select some other action in that situation in the future.
     - a ***value function*** - the value of a state is the total amount of reward an agent can expect to accumulate over the future, starting from that state. Rewards are in a sense primary, whereas values, as predictions of rewards, are secondary. Without rewards there could be no values, and the only purpose of estimating values is to achieve more reward. Nevertheless, it is values with which we are most concerned when making and evaluating decisions. Action choices are made based on value judgments. We seek actions that bring about states of highest value, not highest reward, because these actions obtain the greatest amount of reward for us over the long run.Unfortunately, it is much harder to determine values than it is to determine rewards. Rewards are basically given directly by the environment, but values must be estimated and re-estimated from the sequences of observations an agent makes over its entire lifetime
     - a ***model*** of the environment - a model allows inferences to be made about how the environment will behave. For example, given a state and action, the model might predict the resultant next state and next reward. Models are used for planning. Methods for solving reinforcement learning problems that use models and planning are called model-based methods. Simpler are model-free methods that are explicitly trial-and-error learners (almost the opposite of planning).
+
+## The Setting  <a name="setting"></a>
+- At the initial timestep, the agent observes the environment.
+- Then, it must select an appropriate action in response.
+- Then at the next timestep in response to the agents action, the environment presents a new situation to the agent.
+- At the same time the environment gives the agent a reward which provides
+some indication of whether the agent has responded appropriately to the environment.
+- Then the process continues where at each timestep
+the environment sends the agent an observation and reward.
+
+![image2]
+
+## Episodic vs. Continuing Tasks <a name="episodic_continuous"></a>
+Episodic Tasks
+- Reinforcemnt Learning Tasks with a well-defined ending point are called ***episodic tasks***
+- When the episode ends, the agent looks at the total amount of ***reward*** it received to ***figure out how well it did***. 
+- Example: Playing chess
+- It's then able to start from scratch as if it has been completely reborn into
+the same environment but now with the ***added knowledge*** of what happened in its past life.
+- In this way, as time passes over its many lives, the agent makes better and better decisions.
+- Problem: Feedback is only delivered at the very end of the game. 
+- ***Sparse rewards***
+
+Continuing Tasks
+- Tasks that go on forever, without end are called ***continuing tasks***
+- For instance, an algorithm that buys and sells stocks in response to
+the financial market would be best modeled as an agent in the continuing tasks.
+- In this case, the agent lives forever.
+- So it has to learn the best way to choose actions
+while simultaneously interacting with the environment.
+    ![image3]
 
 
 ## Setup Instructions <a name="Setup_Instructions"></a>
