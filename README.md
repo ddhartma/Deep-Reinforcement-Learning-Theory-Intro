@@ -16,6 +16,8 @@
 [image16]: assets/grid_world.png "image16"
 [image17]: assets/state_value_func_1.png "image17"
 [image18]: assets/state_value_func_2.png "image18"
+[image19]: assets/bellman_equ.png "image19"
+
 
 # Deep Reinforcement Learning Theory - Part 1 
 
@@ -41,6 +43,7 @@
     - [State-Value Functions](#state_val_func)
     - [The Gridworld Example](#grid_world_example)
     - [Bellman Equations](#Bellman_Equations)
+    - [Calculating Expactations](#calc_expectations)
     - [Optimality](#Optimality)
     - [Action-Value Functions](#Action_Value_Functions)
     - [Optimal Policies](#Optimal_Policies)
@@ -391,9 +394,6 @@ it just collects all of the reward along the way.
 
     ![image17]
 
-
-
-
 ## State-Value Functions <a name="state_val_func"></a> 
 
 - The state-value function for a policy **π**  is denoted **v<sub>π</sub>**. 
@@ -406,13 +406,31 @@ it just collects all of the reward along the way.
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle v_{\pi}(s) \doteq \E_{\pi}[G_t \mid S_t = s]" width="300px">
 - **v<sub>π</sub>(s)** is the value of state **s** under policy **π**.
 
-## Bellman Equations <a name="Bellman_Equations"></a>
+    ![image18]
 
+## Bellman Equations <a name="Bellman_Equations"></a>
+- For value calculation you don't need to start your calculations from scratch every time. It turns out to be redundant effort.
+- The value function has a recursive property.
 - The Bellman expectation equation for **v<sub>π</sub>** is: 
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle v_{\pi}(s) \doteq \E_{\pi}[R_{t %2B 1} %2B \gamma v_{\pi}(S_{t %2B 1}) \mid S_t = s]" width="500px">
 
-    ![image18]
+    ![image19]
+
+- In total there are 4 Bellman Equations. See sections 3.5 and 3.6 of the [Reinforcement Learning Textbook](https://s3-us-west-1.amazonaws.com/udacity-drlnd/bookdraft2018.pdf). The Bellman equations are incredibly useful to the theory of MDPs.
+
+## Calculating Expectations <a name="calc_expectations"></a>
+- **Deterministic  policy π**: the agent in state **s** selects action **π(s)**, and the Bellman Expectation Equation can be rewritten as the sum over two variables (**s′** and **r**):
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle v_{\pi}(s) = \sum _{s^{'} \in S^{%2B}, r \in R}^{} p(s^{'}, r \mid s, \pi(s))(r %2B \gamma v_{\pi}(s^{'}))" width="600px">
+
+    In this case, we multiply the sum of the reward and discounted value of the next state **(r + γv<sub>π</sub>(s′))** by its corresponding probability **p(s′,r ∣ s,π(s))** and sum over all possibilities to yield the expected value.
+
+- **Stochastic policy π**: the agent in state **s** selects action **a** with probability **π(a ∣ s)**, and the Bellman Expectation Equation can be rewritten as the sum over three variables (**s′**, **r**, and **a**):
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle v_{\pi}(s) = \sum _{s^{'} \in S^{%2B}, r \in R, a \in A}^{} \pi(a \mid s) p(s^{'},r \mid s,a)(r %2B \gamma v_{\pi}(s^{'}))" width="700px">
+
+    In this case, we multiply the sum of the reward and discounted value of the next state **(r + γvπ(s′))** by its corresponding probability **π(a ∣ s)p(s',r | s,a)** and sum over all possibilities to yield the expected value.
 
 ## Optimality <a name="Optimality"></a>
 - A policy **π′** is defined to be better than or equal to a policy **π** if and only if 
@@ -431,7 +449,7 @@ it just collects all of the reward along the way.
 - An optimal policy is guaranteed to exist but may not be unique.
 - All optimal policies have the same state-value function **v<sub>∗</sub>**, called the optimal state-value function.
 
-
+    
 ## Action-Value Functions <a name="Action_Value_Functions"></a>
 - The action-value function for a policy **π** is denoted **q<sub>π</sub>**. 
 - For each state 
