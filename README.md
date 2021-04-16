@@ -1,7 +1,8 @@
 [image1]: assets/examples.png "image1"
 [image2]: assets/drl_concept.png "image2"
 [image3]: assets/episodic_conti.png "image3"
-
+[image4]: assets/reward_hypo.png "image4"
+[image5]: assets/reward_strategy.png "image5"
 
 
 
@@ -17,6 +18,10 @@
 - [Elements of Reinforcement Learning](#rl_elements)
 - [The Setting](#setting)
 - [Episodic vs. Continuing Tasks](#episodic_continuous)
+- [The Reward Hypothesis](#reward_hypo)
+- [Goals and Rewards](#goals_rewards)
+- [Cumulative Reward](#cum_reward)
+- 
 - [Setup Instructions](#Setup_Instructions)
 - [Acknowledgments](#Acknowledgments)
 - [Further Links](#Further_Links)
@@ -98,12 +103,15 @@ and the same algorithms that we used to play games can be adapted for **robotics
 some indication of whether the agent has responded appropriately to the environment.
 - Then the process continues where at each timestep
 the environment sends the agent an observation and reward.
-
-![image2]
+    ![image2]
 
 ## Episodic vs. Continuing Tasks <a name="episodic_continuous"></a>
-Episodic Tasks
-- Reinforcemnt Learning Tasks with a well-defined ending point are called ***episodic tasks***
+A task is an instance of the reinforcement learning (RL) problem.
+
+### Episodic Tasks
+- Reinforcemnt Learning Tasks with ***a well-defined ending point*** are called ***episodic tasks***
+- In this case, we refer to a complete sequence of interaction, from start to finish, as an episode.
+- Episodic tasks come to an end whenever the agent reaches a ***terminal state***.
 - When the episode ends, the agent looks at the total amount of ***reward*** it received to ***figure out how well it did***. 
 - Example: Playing chess
 - It's then able to start from scratch as if it has been completely reborn into
@@ -112,14 +120,74 @@ the same environment but now with the ***added knowledge*** of what happened in 
 - Problem: Feedback is only delivered at the very end of the game. 
 - ***Sparse rewards***
 
-Continuing Tasks
-- Tasks that go on forever, without end are called ***continuing tasks***
+### Continuing Tasks
+- Tasks that go on forever, ***without end*** are called ***continuing tasks***
 - For instance, an algorithm that buys and sells stocks in response to
 the financial market would be best modeled as an agent in the continuing tasks.
 - In this case, the agent lives forever.
 - So it has to learn the best way to choose actions
 while simultaneously interacting with the environment.
     ![image3]
+
+## The Reward Hypothesis <a name="reward_hypo"></a>
+- Very different goals can be addressed with the same theoretical framework.
+- All agents formulate their goals in terms of maximizing expected cumulative reward.
+- It's important to note that the word "Reinforcement" and
+"Reinforcement Learning" is a term originally from **behavioral science**. It refers to a **stimulus** that's delivered immediately after behavior to make the behavior more likely to occur in the future. In fact, it's an important to defining hypothesis.
+- And we call this hypothesis, the "Reward Hypothesis". If this still seems weird or uncomfortable to you, you are not alone.
+
+    ![image4]
+
+## Goals and Rewards <a name="goals_rewards"></a>
+Goals
+
+- Google DeepMind addressed the problem of teaching a robot to walk.
+- They worked with a physical simulation of a humanoid robot and they
+managed to apply some nice reinforcement learning to get great results.
+- In order to frame this as a reinforcement learning problem,
+we'll have to specify the state's actions and rewards.
+- In case of humanoid robot
+    - ***actions*** are just the ***forces that the robot applies to its joints*** in order to move.
+    - ***states*** contain the ***current positions and velocities*** of all of the joints, along with some measurements about the surface that the robot was standing on.
+
+Rewards
+- Google DeepMind developed a a reward strategy
+- Each term communicates to the agent some part of what we'd like it to accomplish.
+    - ***Velocity***: if robot moves faster, it gets more reward, but up to a limit (Vmax)
+    - ***Force to joints***: robot is penalized by
+an amount proportional to the force applied to each joint.
+    - ***Moving forward***: robot should move forward,
+the agent is also penalized for moving left, right, or vertically.
+    - ***Center movement***: robot is penalized, if it is not close to the center.
+    - ***Constant reward - Not fallen***: At every time step,
+the agent also receives some positive reward if the humanoid has not yet fallen.
+- Episodic task: episode is terminated when robot falls
+
+Reward Strategy:
+
+- Of course, the robot can't focus just on 
+    - walking fast,
+    - or just on moving forward,
+    - or only on walking smoothly,
+    - or just on walking for as long as possible.
+
+- There are competing requirements that the agent has to balance for
+all time steps towards its goal of maximizing expected cumulative reward.
+- Google DeepMind demonstrated that from this very simple reward function, the agent is able to learn how to walk in a very human like fashion.
+
+    ![image5]
+
+## Cumulative Reward <a name="cum_reward"></a>
+- The Overall goal of the walking robot: 
+    - to stay walking forward for as long as possible 
+    - as quickly as possible 
+    - while also exerting minimal effort.
+- Could the agent just maximize the reward and each time step? NO
+- The agent cannot focus on individual time steps, but it needs to keep all time steps in mind.
+- Actions have short and long term consequences and the agent needs
+to gain some understanding of the complex effects its actions have on the environment. The robot needs to understand **long term stability**
+- So in this way, the robot **moves a bit slowly to sacrifice a little bit of reward** but it will payoff because it will avoid falling for longer and collect higher cumulative reward.
+
 
 
 ## Setup Instructions <a name="Setup_Instructions"></a>
