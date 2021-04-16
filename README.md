@@ -3,7 +3,15 @@
 [image3]: assets/episodic_conti.png "image3"
 [image4]: assets/reward_hypo.png "image4"
 [image5]: assets/reward_strategy.png "image5"
-
+[image6]: assets/reward_return.png "image6"
+[image7]: assets/discounted_return.png "image7"
+[image8]: assets/cart_pole.png "image8"
+[image9]: assets/recycle_robot_1.png "image9"
+[image10]: assets/recycle_robot_2.png "image10"
+[image11]: assets/one_step_dyn.png "image11"
+[image12]: assets/mdp.png "image12"
+[image13]: assets/obs_space.png "image13"
+[image14]: assets/action_space.png "image14"
 
 
 # Deep Reinforcement Learning Theory - Part 1 
@@ -21,7 +29,9 @@
 - [The Reward Hypothesis](#reward_hypo)
 - [Goals and Rewards](#goals_rewards)
 - [Cumulative Reward](#cum_reward)
-- 
+- [Discounted Return](#disc_return)
+- [Markov Decision Process (MDP)](#mdp)
+- [Finite MDPs](#finite_mdps)
 - [Setup Instructions](#Setup_Instructions)
 - [Acknowledgments](#Acknowledgments)
 - [Further Links](#Further_Links)
@@ -96,13 +106,10 @@ and the same algorithms that we used to play games can be adapted for **robotics
     - a ***model*** of the environment - a model allows inferences to be made about how the environment will behave. For example, given a state and action, the model might predict the resultant next state and next reward. Models are used for planning. Methods for solving reinforcement learning problems that use models and planning are called model-based methods. Simpler are model-free methods that are explicitly trial-and-error learners (almost the opposite of planning).
 
 ## The Setting  <a name="setting"></a>
-- At the initial timestep, the agent observes the environment.
-- Then, it must select an appropriate action in response.
-- Then at the next timestep in response to the agents action, the environment presents a new situation to the agent.
-- At the same time the environment gives the agent a reward which provides
-some indication of whether the agent has responded appropriately to the environment.
-- Then the process continues where at each timestep
-the environment sends the agent an observation and reward.
+- The reinforcement learning (RL) framework is characterized by an **agent** learning to **interact** with its **environment**.
+- At each time step, the agent receives the environment's **state** (the environment presents a situation to the agent), and the agent must choose an appropriate **action** in response. One time step later, the agent receives a **reward** (the environment indicates whether the agent has responded appropriately to the state) and a new **state**.
+- All agents have the goal to maximize **expected cumulative reward**, or the expected sum of rewards attained over all time steps.
+
     ![image2]
 
 ## Episodic vs. Continuing Tasks <a name="episodic_continuous"></a>
@@ -110,37 +117,30 @@ A task is an instance of the reinforcement learning (RL) problem.
 
 ### Episodic Tasks
 - Reinforcemnt Learning Tasks with ***a well-defined ending point*** are called ***episodic tasks***
-- In this case, we refer to a complete sequence of interaction, from start to finish, as an episode.
+- In this case, we refer to a complete sequence of interaction, from start to finish, as an ***episode***.
 - Episodic tasks come to an end whenever the agent reaches a ***terminal state***.
 - When the episode ends, the agent looks at the total amount of ***reward*** it received to ***figure out how well it did***. 
 - Example: Playing chess
-- It's then able to start from scratch as if it has been completely reborn into
-the same environment but now with the ***added knowledge*** of what happened in its past life.
+- It's then able to start from scratch as if it has been completely reborn into the same environment but now with the ***added knowledge*** of what happened in its past life.
 - In this way, as time passes over its many lives, the agent makes better and better decisions.
 - Problem: Feedback is only delivered at the very end of the game. 
 - ***Sparse rewards***
 
 ### Continuing Tasks
 - Tasks that go on forever, ***without end*** are called ***continuing tasks***
-- For instance, an algorithm that buys and sells stocks in response to
-the financial market would be best modeled as an agent in the continuing tasks.
+- For instance, an algorithm that buys and sells stocks in response to the financial market would be best modeled as an agent in the continuing tasks.
 - In this case, the agent lives forever.
 - So it has to learn the best way to choose actions
 while simultaneously interacting with the environment.
     ![image3]
 
 ## The Reward Hypothesis <a name="reward_hypo"></a>
-- Very different goals can be addressed with the same theoretical framework.
-- All agents formulate their goals in terms of maximizing expected cumulative reward.
-- It's important to note that the word "Reinforcement" and
-"Reinforcement Learning" is a term originally from **behavioral science**. It refers to a **stimulus** that's delivered immediately after behavior to make the behavior more likely to occur in the future. In fact, it's an important to defining hypothesis.
-- And we call this hypothesis, the "Reward Hypothesis". If this still seems weird or uncomfortable to you, you are not alone.
+- All goals can be framed as the maximization of (expected) cumulative reward.
 
     ![image4]
 
 ## Goals and Rewards <a name="goals_rewards"></a>
-Goals
-
+### Goals
 - Google DeepMind addressed the problem of teaching a robot to walk.
 - They worked with a physical simulation of a humanoid robot and they
 managed to apply some nice reinforcement learning to get great results.
@@ -150,7 +150,7 @@ we'll have to specify the state's actions and rewards.
     - ***actions*** are just the ***forces that the robot applies to its joints*** in order to move.
     - ***states*** contain the ***current positions and velocities*** of all of the joints, along with some measurements about the surface that the robot was standing on.
 
-Rewards
+### Rewards
 - Google DeepMind developed a a reward strategy
 - Each term communicates to the agent some part of what we'd like it to accomplish.
     - ***Velocity***: if robot moves faster, it gets more reward, but up to a limit (Vmax)
@@ -163,8 +163,7 @@ the agent is also penalized for moving left, right, or vertically.
 the agent also receives some positive reward if the humanoid has not yet fallen.
 - Episodic task: episode is terminated when robot falls
 
-Reward Strategy:
-
+### Reward Strategy:
 - Of course, the robot can't focus just on 
     - walking fast,
     - or just on moving forward,
@@ -182,11 +181,121 @@ all time steps towards its goal of maximizing expected cumulative reward.
     - to stay walking forward for as long as possible 
     - as quickly as possible 
     - while also exerting minimal effort.
-- Could the agent just maximize the reward and each time step? NO
-- The agent cannot focus on individual time steps, but it needs to keep all time steps in mind.
+- Could the agent just **maximize the reward in each time step**? NO
+- The agent **cannot focus on individual time steps**, but it needs to **keep all time steps in mind**.
 - Actions have short and long term consequences and the agent needs
 to gain some understanding of the complex effects its actions have on the environment. The robot needs to understand **long term stability**
-- So in this way, the robot **moves a bit slowly to sacrifice a little bit of reward** but it will payoff because it will avoid falling for longer and collect higher cumulative reward.
+- So in this way, the robot **moves a bit slowly to sacrifice a little bit of reward** but it will payoff because it will avoid falling for longer and **collect higher cumulative reward**.
+
+- How exactly does the robot keep all time steps in mind?
+    - Looking at some time step, t, it's important to note that the rewards for all previous time steps have already been decided as they're in the past.
+    - Only future rewards are inside the agent's control.
+    - The **sum of rewards** from the next time step onward is the **return G**, and at an arbitrary time step, the agent will always **choose an action with goal of maximizing the expected return**.
+    - **Expected return** instead of return: The agent normally can't predict with complete certainty what the future reward is likely to be. So it has to rely on a prediction or an estimate.
+
+    ![image6]
+
+## Discounted Return <a name="disc_return"></a> 
+- **Rewards that come sooner should be valued more** highly, since those rewards are **more predictable**.
+- Use a **discount rate** for the expected return **to care about future time steps**.
+- The **larger the discaount rate** is, the more the agent cares about the **distant future**.
+- The **smaller the discaount rate** is, the more the agent cares about the **most immediate reward**.
+- It's important to note that discounting is particularly relevant to **continuing tasks** (interaction goes on without end). A discount rate helps to avoid to look too far into the limitless future.
+- But it's important to note that with or without discounting,
+the goal is always the same. It's always to maximize cumulative reward.
+
+    ![image7]
+
+- Here "Return" and "discounted return" is used interchangably. For an arbitrary time step t, both refer to
+<img src="https://render.githubusercontent.com/render/math?math=\displaystyle G_{t}=\sum _{k=0}^{\infty }\gamma ^{k}R_{t %2B k %2B 1}" width="180px">
+
+    and 
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \gamma \in [0,1)" width="100px">
+
+- A good choice for discount rate in many problems is **0.9**.
+
+
+- Example: [Cart-pole-balancing in OpenAI Gym](https://gym.openai.com/envs/CartPole-v0/)
+    - [Medium-Source](https://medium.com/@tuzzer/cart-pole-balancing-with-q-learning-b54c6068d947)
+    - Recall that the agent receives a reward of +1 for every time step, including the final step of the episode. Which discount rates (1, 0.9, 0.5) would encourage the agent to keep the pole balanced for as long as possible? Answer: For all three discount rates
+    - Say that the reward signal is amended to only give reward to the agent at the end of an episode. So, the reward is 0 for every time step, with the exception of the final time step. When the episode terminates, the agent receives a reward of -1. Which discount rates (1, 0.9, 0.5, none of these) would encourage the agent to keep the pole balanced for as long as possible? Answer: 0.9 and 0.5 (With discounting, the agent will try to keep the pole balanced for as long as possible, as this will result in a return that is relatively less negative.)
+    - Say that the reward signal is amended to only give reward to the agent at the end of an episode. So, the reward is 0 for every time step, with the exception of the final time step. When the episode terminates, the agent receives a reward of +1. Which discount rates (1, 0.9, 0.5, none of these) would encourage the agent to keep the pole balanced for as long as possible? Answer: None of these (If the discount rate is 1, the agent will always receive a reward of +1, If the discount rate is 0.5 or 0.9, the agent will try to terminate the episode as soon as possible)
+
+    ![image8]
+
+## Markov Decision Process (MDP) <a name="mdp"></a>
+
+### The problem statement:
+- So consider a robot that's designed for picking up empty soda cans.
+- The robot is equipped with arms to grab the cans and runs on a rechargeable battery.
+- There's a docking station set up in one corner of the room and
+the robot has to sit at the station if it needs to recharge its battery.
+- Robot to be able to decide for itself when it needs to recharge its battery.
+
+### Frame this as a reinforcement learning problem:
+- **Actions A**:
+    - Three potential actions.
+    - It can search the room for cans,
+    - It can head to the docking station to recharge its battery,
+    - It can stay put in the hopes that someone brings it a can.
+    - The action space **A** is the set of possible actions available to the agent.
+    -  Use **A(s)** if only a small set of actions is available in state **S**.
+
+- **States S**:
+    - States are just the context provided to the agent for making intelligent actions.
+    - States could be the charge left on the robot's battery.
+    - For simplicity, let's assume that the battery has one of two states (high amount of charge left --> higher chance that robot will search for cans, low amount of charge --> lower chance that robot will search for cans)
+    - In general, the state space **S** is the set of all nonterminal states.
+    - In continuing tasks (like here), this is equivalent to the set of all states.
+    - In episodic tasks, we use **S<sup>+</sup>** to refer to the set of all states, including terminal states.
+
+    ![image9]
+
+    ![image10]
+
+### One-Step Dynamics
+- At an arbitrary time step ttt, the agent-environment interaction has evolved as a sequence of states, actions, and rewards
+
+    **(S<sub>0</sub>, A<sub>0</sub>, R<sub>1</sub>, S<sub>1</sub>, A<sub>1</sub>, …, R<sub>t−1</sub>, S<sub>t−1</sub>, A<sub>t−1</sub>, R<sub>t</sub>, S<sub>t</sub>, A<sub>t</sub>)**
+- When the environment responds to the agent at time step **t+1**, it considers **only** the state and action at the previous time step **(S<sub>t</sub>, A<sub>t</sub>)**. Prior states are not regarded by the environment.
+- How much reward the agent is collecting, has no effect on how the environment chooses to respond to the agent. Hence, the environment does not consider any of **{R<sub>0</sub>, …, R<sub>t</sub>}**.
+
+- Because of this, we can completely define how the environment decides the state and reward by specifying 
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle p(s^{'},r \mid s,a) =\P(S_{t %2B 1}, R_{t %2B 1}= r \mid S_{t} = s,A_{t}=a)" width="500px">
+
+    for each possible **s′**, **r**, **s** and **a**. These conditional probabilities are said to specify the **one-step dynamics** of the environment.
+
+    ![image11]
+
+### The Markow Decision Process (MDP) definition:
+ 
+  - ![image12]
+
+## Finite MDPs <a name="finite_mdps"></a> 
+ - Use this [link](https://github.com/openai/gym/wiki/Table-of-environments) to use the available environments in OpenAI Gym
+ - The environments are indexed by Environment Id, and each environment has corresponding **Observation Space**, **Action Space**, **Reward Range**, **tStepL**, **Trials**, and **rThresh**.
+ - Every environment comes with first-class Space objects that describe the valid actions and observations.
+    - The **Discrete space** allows a fixed range of non-negative numbers.
+    - The **Box space** represents an n-dimensional box, so valid actions or observations will be an array of n numbers.
+- **Observation Space**: The observation space for the CartPole-v0 environment has type **Box(4,)**. Thus, the state at each time point is an array of 4 numbers. Check this [document](https://github.com/openai/gym/wiki/CartPole-v0). 
+
+    ![image13]
+
+    Since the entry in the array corresponding to each of these indices can be any real number, the state space **S<sup>+</sup>** is infinite.
+
+    
+- **Action Space**: The action space for the CartPole-v0 environment has type **Discrete(2)**. Thus, at any time point, there are only two actions available to the agent. You can look up what each of these numbers represents in this document (note that it is the same document you used to look up the observation space!). After opening the page, scroll down to the description of the action space.
+
+    ![image14]
+
+    In this case, the action space **A** is a finite set containing only two elements.
+
+
+### Finite MDP definition:
+- In a finite MDP, the state space **S** (or **S<sup>+</sup>**, in the case of an episodic task) and action space **A** must both be finite.
+- Thus for Cart-Pole-v0 there are infinite states, it is not a finite MDP.
+
 
 
 
