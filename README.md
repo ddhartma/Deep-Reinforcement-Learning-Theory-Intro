@@ -207,9 +207,9 @@ the goal is always the same. It's always to maximize cumulative reward.
     ![image7]
 
 - Here "Return" and "discounted return" is used interchangably. For an arbitrary time step t, both refer to
-<img src="https://render.githubusercontent.com/render/math?math=\displaystyle G_{t}=\sum _{k=0}^{\infty }\gamma ^{k}R_{t %2B k %2B 1}" width="180px">
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle G_{t}=\sum _{k=0}^{\infty }\gamma ^{k}R_{t %2B k %2B 1}" width="180px"> 
 
-    and 
+    and
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \gamma \in [0,1)" width="100px">
 
