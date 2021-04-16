@@ -23,15 +23,24 @@
 - [Cheatsheet and TextBook](#cheat_text)
 - [Udacity DRL Github Repository](#uda_git_repo)
 - [Deep Reinforcement Learning Nanodegree Links](#uda_nano_drl_links)
-- [Elements of Reinforcement Learning](#rl_elements)
-- [The Setting](#setting)
-- [Episodic vs. Continuing Tasks](#episodic_continuous)
-- [The Reward Hypothesis](#reward_hypo)
-- [Goals and Rewards](#goals_rewards)
-- [Cumulative Reward](#cum_reward)
-- [Discounted Return](#disc_return)
-- [Markov Decision Process (MDP)](#mdp)
-- [Finite MDPs](#finite_mdps)
+- [The RL Framework: The Problem](#rl_frame_prob)
+    - [Elements of Reinforcement Learning](#rl_elements)
+    - [The Setting](#setting)
+    - [Episodic vs. Continuing Tasks](#episodic_continuous)
+    - [The Reward Hypothesis](#reward_hypo)
+    - [Goals and Rewards](#goals_rewards)
+    - [Cumulative Reward](#cum_reward)
+    - [Discounted Return](#disc_return)
+    - [Markov Decision Process (MDP)](#mdp)
+    - [Finite MDPs](#finite_mdps)
+- [The RL Framework: The Solution](#rl_frame_sol)
+    - [Policies](#Policies)
+    - [State-Value Functions](#state_val_func)
+    - [Bellman Equations](#Bellman_Equations)
+    - [Optimality](#Optimality)
+    - [Action-Value Functions](#Action_Value_Functions)
+    - [Optimal Policies](#Optimal_Policies)
+    
 - [Setup Instructions](#Setup_Instructions)
 - [Acknowledgments](#Acknowledgments)
 - [Further Links](#Further_Links)
@@ -81,7 +90,7 @@ and the same algorithms that we used to play games can be adapted for **robotics
 - [Installation Guide](https://github.com/openai/gym#installation)
 - It includes dozens of different environments for testing reinforcement learning agents
 - It was designed as a toolkit for developing and comparing reiforcement learning algorithms
-- It was developed to adddress the lack of benchmarks and standardization in RL research
+- It was developed to address the lack of benchmarks and standardization in RL research
 
 ## Cheatsheet and TextBook <a name="cheat_text"></a> 
 - [Cheatsheet](https://raw.githubusercontent.com/udacity/deep-reinforcement-learning/master/cheatsheet/cheatsheet.pdf)
@@ -96,6 +105,8 @@ and the same algorithms that we used to play games can be adapted for **robotics
     ```
 ## Deep Reinforcement Learning Nanodegree Links <a name="uda_nano_drl_links"></a>
 - Student-curated list of resources for [Deep Reinforcement Learning Nanodegree Links](https://docs.google.com/spreadsheets/d/19jUvEO82qt3itGP3mXRmaoMbVOyE6bLOp5_QwqITzaM/edit#gid=0)
+
+## The RL Framework: The Problem <a name="rl_frame_prob"></a> 
 
 ## Elements of Reinforcement Learning <a name="rl_elements"></a>  
 - ***Interaction*** between an active ***decision-making agent*** and its ***environment***, within which the agent seeks to achieve a ***goal*** despite uncertainty about its environment
@@ -297,7 +308,104 @@ the robot has to sit at the station if it needs to recharge its battery.
 - Thus for Cart-Pole-v0 there are infinite states, it is not a finite MDP.
 
 
+## The RL Framework: The Solution  <a name="rl_frame_sol"></a> 
 
+## Policies <a name="Policies"></a>
+### A deterministic policy 
+- is a mapping 
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi : S  \rightarrow A" width="130px">
+
+- For each state 
+    
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle s \in S " width="70px">
+
+    it yields the action 
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle a \in A " width="70px">
+
+    that the agent will choose while in state **s**.
+
+### A stochastic policy 
+- is a mapping 
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi : S  \rightarrow [0, 1]" width="160px">
+
+- For each state 
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle s \in S " width="70px">
+
+    and action
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle a \in A " width="70px">
+
+    it yields the probability 
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi(a \mid s) " width="70px">
+
+    that the agent will choose action **a** while in state **s**.
+
+## State-Value Functions <a name="state_val_func"></a> 
+- The state-value function for a policy **π**  is denoted **v<sub>π</sub>**. 
+- For each state 
+    
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle s \in S " width="70px">
+
+    it yields the expected return if the agent starts in state **s** and then uses the policy to choose its actions for all time steps.
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle v_{\pi}(s) \doteq \E_{\pi}[G_t \mid S_t = s]" width="300px">
+- **v<sub>π</sub>(s)** is the value of state **s** under policy **π**.
+
+## Bellman Equations <a name="Bellman_Equations"></a>
+
+- The Bellman expectation equation for **v<sub>π</sub>** is: 
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle v_{\pi}(s) \doteq \E_{\pi}[R_{t %2B 1} %2B \gamma v_{\pi}(S_{t %2B 1}) \mid S_t = s]" width="500px">
+
+## Optimality <a name="Optimality"></a>
+- A policy **π′** is defined to be better than or equal to a policy **π** if and only if 
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle v_{\pi^'}(s) \geq v_{\pi}(s)" width="200px">
+
+    for all 
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle s \in S " width="70px">
+
+- An optimal policy **π<sub>∗</sub>** satisfies 
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi_{*} \geq \pi" width="100px">
+
+    for all policies **π**. 
+- An optimal policy is guaranteed to exist but may not be unique.
+- All optimal policies have the same state-value function **v<sub>∗</sub>**, called the optimal state-value function.
+
+
+## Action-Value Functions <a name="Action_Value_Functions"></a>
+- The action-value function for a policy **π** is denoted **q<sub>π</sub>**. 
+- For each state 
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle s \in S " width="70px">
+    
+    and action 
+     
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi(a \mid s) " width="70px">
+    
+    it yields the expected return if the agent starts in state **s**,takes action **a**, and then follows the policy for all future time steps. That is, 
+    
+    
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle q_{\pi}(s,a) \doteq \E_{\pi}[G_{t} \mid S_t = s, A_t = a]" width="500px">
+    
+    
+- We refer to **q<sub>π</sub>(s,a)** as the **value of taking action a in state s under a policy π** (or alternatively as the **value of the state-action pair s,a**).
+- All optimal policies have the same action-value function **q<sub>∗</sub>**, called the **optimal action-value function**.
+
+
+## Optimal Policies <a name="Optimal_Policies"></a>
+- Once the agent determines the optimal action-value function **q<sub>∗</sub>**, it can quickly obtain an optimal policy π<sub>∗</sub> by setting 
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi_{*}(s) = argmax_{a \in A(s) q_{*}(s,a)}" width="500px">
+
+π∗(s)=argmaxa∈A(s)q∗(s,a)\pi_*(s) = \arg\max_{a\in\mathcal{A}(s)} q_*(s,a)π∗​(s)=argmaxa∈A(s)​q∗​(s,a).
 
 ## Setup Instructions <a name="Setup_Instructions"></a>
 The following is a brief set of instructions on setting up a cloned repository.
