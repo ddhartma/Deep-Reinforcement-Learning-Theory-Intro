@@ -12,7 +12,10 @@
 [image12]: assets/mdp.png "image12"
 [image13]: assets/obs_space.png "image13"
 [image14]: assets/action_space.png "image14"
-
+[image15]: assets/policies.png "image15"
+[image16]: assets/grid_world.png "image16"
+[image17]: assets/state_value_func_1.png "image17"
+[image18]: assets/state_value_func_2.png "image18"
 
 # Deep Reinforcement Learning Theory - Part 1 
 
@@ -36,6 +39,7 @@
 - [The RL Framework: The Solution](#rl_frame_sol)
     - [Policies](#Policies)
     - [State-Value Functions](#state_val_func)
+    - [The Gridworld Example](#grid_world_example)
     - [Bellman Equations](#Bellman_Equations)
     - [Optimality](#Optimality)
     - [Action-Value Functions](#Action_Value_Functions)
@@ -309,8 +313,22 @@ the robot has to sit at the station if it needs to recharge its battery.
 
 
 ## The RL Framework: The Solution  <a name="rl_frame_sol"></a> 
+- This lesson covers material in Chapter 3 (especially 3.5-3.6) of the [Reinforcement Learning Textbook](https://s3-us-west-1.amazonaws.com/udacity-drlnd/bookdraft2018.pdf).
+- Before we defined the problem via MDP
+- Now let's find a solution for this problem statement
+- Reward is always decided in the context of the state that it
+was decided in along with the state that follows.
+
+
 
 ## Policies <a name="Policies"></a>
+- As long as the agent learns an appropriate action response to any environment state that it can observe, we have a solution to our problem.
+- This motivates the idea of a policy.
+- Deterministic policy: The simplest kind of policy is a mapping from the set of environment states to the set of possible actions. The deterministic policy would specify something
+like whenever the battery is low, recharge it. And whenever the battery has a high amount of charge, search for cans.
+- Stochastic policy: will allow the agent to choose actions randomly.
+  It is a mapping of a state S and action A and returns the probability that the agent takes action a while in state s. The stochastic policy does something more like whenever the battery is low, recharge it with 50 percent probability, wait where you are with 40 percent probability. And otherwise, search for cans. Whenever the battery is high, earch for cans with 90 percent probability. And otherwise, wait for a can.
+
 ### A deterministic policy 
 - is a mapping 
 
@@ -345,7 +363,39 @@ the robot has to sit at the station if it needs to recharge its battery.
 
     that the agent will choose action **a** while in state **s**.
 
+    ![image15]
+
+
+
+## The Gridworld Example <a name="grid_world_example"></a>
+- In order to understand how to find the best policy consider this very small Gridworld Example and an agent who lives in it.
+- The world is primarily composed of nice patches of grass,
+but two out of the nine locations in the world have large mountains.
+- States: 9 locations are states.
+- Actions: move up, down, left or right, and can only take actions that lead it to not fall off the grid.
+- Episodic task where an episode finishes when the agent reaches the goal. So we won't have to worry about transitions away from this goal state.
+- The reward signal punishes the agent for every timestep that it spends away from the goal (-1 and -3 in case of mountain).
+- The reward structure encourages the agent to get to the goal as quickly as possible.
+- When it reaches the goal, it gets a reward of 5, and the episode ends.
+
+    ![image16]
+
+- We're working with this grid world example and looking for
+the best policy that leads us to a goal state as quickly as possible.
+- So, let's start with a very, very bad policy, e.g. where the agent
+visits every state in this very roundabout manner,
+and we can ignore the transition that the agent will never take under the policy.
+- If the agent starts in the top left corner of
+the world and follows this policy to get to the goal state,
+it just collects all of the reward along the way.
+
+    ![image17]
+
+
+
+
 ## State-Value Functions <a name="state_val_func"></a> 
+
 - The state-value function for a policy **π**  is denoted **v<sub>π</sub>**. 
 - For each state 
     
@@ -361,6 +411,8 @@ the robot has to sit at the station if it needs to recharge its battery.
 - The Bellman expectation equation for **v<sub>π</sub>** is: 
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle v_{\pi}(s) \doteq \E_{\pi}[R_{t %2B 1} %2B \gamma v_{\pi}(S_{t %2B 1}) \mid S_t = s]" width="500px">
+
+    ![image18]
 
 ## Optimality <a name="Optimality"></a>
 - A policy **π′** is defined to be better than or equal to a policy **π** if and only if 
