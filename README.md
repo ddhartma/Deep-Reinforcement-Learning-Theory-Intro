@@ -17,6 +17,7 @@
 [image17]: assets/state_value_func_1.png "image17"
 [image18]: assets/state_value_func_2.png "image18"
 [image19]: assets/bellman_equ.png "image19"
+[image20]: assets/optimality.png "image20"
 
 
 # Deep Reinforcement Learning Theory - Part 1 
@@ -372,12 +373,12 @@ like whenever the battery is low, recharge it. And whenever the battery has a hi
 
 ## The Gridworld Example <a name="grid_world_example"></a>
 - In order to understand how to find the best policy consider this very small Gridworld Example and an agent who lives in it.
-- The world is primarily composed of nice patches of grass,
+- **Environment**: The world is primarily composed of nice patches of grass,
 but two out of the nine locations in the world have large mountains.
-- States: 9 locations are states.
-- Actions: move up, down, left or right, and can only take actions that lead it to not fall off the grid.
-- Episodic task where an episode finishes when the agent reaches the goal. So we won't have to worry about transitions away from this goal state.
-- The reward signal punishes the agent for every timestep that it spends away from the goal (-1 and -3 in case of mountain).
+- **States**: 9 locations are states.
+- **Actions**: move up, down, left or right, and can only take actions that lead it to not fall off the grid.
+- **Episodic task** where an episode finishes when the agent reaches the goal. So we won't have to worry about transitions away from this goal state.
+- The **reward signal** punishes the agent for every timestep that it spends away from the goal (-1 and -3 in case of mountain).
 - The reward structure encourages the agent to get to the goal as quickly as possible.
 - When it reaches the goal, it gets a reward of 5, and the episode ends.
 
@@ -404,6 +405,7 @@ it just collects all of the reward along the way.
     it yields the expected return if the agent starts in state **s** and then uses the policy to choose its actions for all time steps.
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle v_{\pi}(s) \doteq \E_{\pi}[G_t \mid S_t = s]" width="300px">
+
 - **v<sub>π</sub>(s)** is the value of state **s** under policy **π**.
 
     ![image18]
@@ -433,7 +435,20 @@ it just collects all of the reward along the way.
     In this case, we multiply the sum of the reward and discounted value of the next state **(r + γvπ(s′))** by its corresponding probability **π(a ∣ s)p(s',r | s,a)** and sum over all possibilities to yield the expected value.
 
 ## Optimality <a name="Optimality"></a>
-- A policy **π′** is defined to be better than or equal to a policy **π** if and only if 
+-  Look at any state in particular and compare the two value functions, the value function for a **π'** is always bigger
+than or equal to the value function for policy **π**.
+- So this says, for any state in the environment,
+it's better to follow policy **π'**, because no matter where the agent starts in the grid world, the expected discounted return is larger, and remember that the goal of the agent is to maximize return.
+- So, ***a greater expected return makes for a better policy***.
+- Definition: A policy **π'** is better than or equal to
+a policy **π** if it's state-value function is greater
+than or equal to that of policy **π** for all states.
+
+- A policy **π′** is defined to be **better than or equal to** a policy **π**, i.e.
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi^' \geq \pi" width="90px">
+
+    if and only if 
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle v_{\pi^'}(s) \geq v_{\pi}(s)" width="200px">
 
@@ -446,8 +461,15 @@ it just collects all of the reward along the way.
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi_{*} \geq \pi" width="100px">
 
     for all policies **π**. 
-- An optimal policy is guaranteed to exist but may not be unique.
-- All optimal policies have the same state-value function **v<sub>∗</sub>**, called the optimal state-value function.
+
+- Some important notes: 
+    1. It is possible to take two policies, that are equally good, i.e. it's possible that they can't be compared.
+    2. At least there must be one policy that's better than or equal to all other policies. We call this policy an **optimal policy** **π<sub>*</sub>**,
+    3. An **optimal policy** **π<sub>*</sub>** is guaranteed to exist but it may not be unique.
+    4. The agent is searching for an optimal policy. It's the solution to the MDP and the best strategy to accomplish it's goal.
+    5. All **optimal policies** **π<sub>*</sub>** have the same value function **v<sub>*</sub>**.
+
+    ![image20]
 
     
 ## Action-Value Functions <a name="Action_Value_Functions"></a>
@@ -475,7 +497,7 @@ it just collects all of the reward along the way.
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi_{*}(s) = argmax_{a \in A(s) q_{*}(s,a)}" width="500px">
 
-π∗(s)=argmaxa∈A(s)q∗(s,a)\pi_*(s) = \arg\max_{a\in\mathcal{A}(s)} q_*(s,a)π∗​(s)=argmaxa∈A(s)​q∗​(s,a).
+
 
 ## Setup Instructions <a name="Setup_Instructions"></a>
 The following is a brief set of instructions on setting up a cloned repository.
