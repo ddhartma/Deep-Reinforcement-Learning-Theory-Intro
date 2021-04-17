@@ -18,6 +18,9 @@
 [image18]: assets/state_value_func_2.png "image18"
 [image19]: assets/bellman_equ.png "image19"
 [image20]: assets/optimality.png "image20"
+[image21]: assets/action_value_func.png "image21"
+[image22]: assets/v_pi_q_pi.png "image22"
+[image23]: assets/optimal_policy_from_q.png "image23"
 
 
 # Deep Reinforcement Learning Theory - Part 1 
@@ -487,9 +490,21 @@ than or equal to that of policy **π** for all states.
     
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle q_{\pi}(s,a) \doteq \E_{\pi}[G_{t} \mid S_t = s, A_t = a]" width="500px">
     
-    
 - We refer to **q<sub>π</sub>(s,a)** as the **value of taking action a in state s under a policy π** (or alternatively as the **value of the state-action pair s,a**).
 - All optimal policies have the same action-value function **q<sub>∗</sub>**, called the **optimal action-value function**.
+
+   ![image21]
+
+- Important note for a **deterministic policy π**:
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle v_{\pi}(s) = q_{\pi}(s, \pi(s))" width="300px">
+
+    holds for all 
+
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle s \in S" width="70px">
+    
+    ![image22]
+
 
 
 ## Optimal Policies <a name="Optimal_Policies"></a>
@@ -497,7 +512,14 @@ than or equal to that of policy **π** for all states.
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi_{*}(s) = argmax_{a \in A(s) q_{*}(s,a)}" width="500px">
 
+- The main idea is this:
+    - The agent interacts with the environment.
+    - From that interaction, it estimates the optimal action value function.
+    - Then, the agent uses that value function to get the optimal policy.
+    - Let's assume it already knows the optimal action-value function, but it doesn't know the corresponding optimal policy.
+    - For each state, we just need to **pick the action that yields the highest expected return**.
 
+    ![image23]
 
 ## Setup Instructions <a name="Setup_Instructions"></a>
 The following is a brief set of instructions on setting up a cloned repository.
