@@ -84,15 +84,15 @@ and the same algorithms that we used to play games can be adapted for **robotics
     how to leverage neural networks when solving complex problems using
     - **Deep Q-Networks (DQN)**
     - **Double Q-learning**
-    - **prioritized experience replay**
-    - **dueling networks**
+    - **Prioritized experience replay**
+    - **Dueling networks**
 
 - Policy-Based Methods and actor-critic methods
     - **Proximal Policy Optimization (PPO)**
     - **Advantage Actor-Critic (A2C)**
     - **Deep Deterministic Policy Gradients (DDPG)**
-    - **evolution strategies** 
-    - **hill climbing**
+    - **Evolution strategies** 
+    - **Hill climbing**
 - Multi-Agent Reinforcement Learning
     - Agents to become truly intelligent, they must be able to communicate with and learn from other agents
     - **Monte Carlo Tree Search (MCTS)**
@@ -124,7 +124,7 @@ and the same algorithms that we used to play games can be adapted for **robotics
 - Four main subelements of a reinforcement learning system: 
     - a ***policy*** - propability of taking an action when in a certain state at a given time, or mapping from perceived states of the environment to actions to be taken when in those states, a set stimulus–response rules.
     - a ***reward*** signal - the agent’s sole objective is to maximize the total reward it receives over the long run. If an action selected by the policy is followed by low reward, then the policy may be changed to select some other action in that situation in the future.
-    - a ***value function*** - the value of a state is the total amount of reward an agent can expect to accumulate over the future, starting from that state. Rewards are in a sense primary, whereas values, as predictions of rewards, are secondary. Without rewards there could be no values, and the only purpose of estimating values is to achieve more reward. Nevertheless, it is values with which we are most concerned when making and evaluating decisions. Action choices are made based on value judgments. We seek actions that bring about states of highest value, not highest reward, because these actions obtain the greatest amount of reward for us over the long run.Unfortunately, it is much harder to determine values than it is to determine rewards. Rewards are basically given directly by the environment, but values must be estimated and re-estimated from the sequences of observations an agent makes over its entire lifetime
+    - a ***value function*** - the value of a state is the total amount of reward an agent can expect to accumulate over the future, starting from that state. Rewards are in a sense primary, whereas values, as predictions of rewards, are secondary. Without rewards there could be no values, and the only purpose of estimating values is to achieve more reward. Nevertheless, it is values with which we are most concerned when making and evaluating decisions. Action choices are made based on value judgments. We seek actions that bring about states of highest value, not highest reward, because these actions obtain the greatest amount of reward for us over the long run. Unfortunately, it is much harder to determine values than it is to determine rewards. Rewards are basically given directly by the environment, but values must be estimated and re-estimated from the sequences of observations an agent makes over its entire lifetime
     - a ***model*** of the environment - a model allows inferences to be made about how the environment will behave. For example, given a state and action, the model might predict the resultant next state and next reward. Models are used for planning. Methods for solving reinforcement learning problems that use models and planning are called model-based methods. Simpler are model-free methods that are explicitly trial-and-error learners (almost the opposite of planning).
 
 ## The Setting  <a name="setting"></a>
