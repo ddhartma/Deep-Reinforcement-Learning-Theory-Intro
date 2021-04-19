@@ -23,7 +23,7 @@
 [image23]: assets/optimal_policy_from_q.png "image23"
 [image24]: assets/q_as_table.png "image24"
 
-# Deep Reinforcement Learning Theory - Part 1 
+# Deep Reinforcement Learning Theory - Intro
 
 ## Content
 - [Introduction](#intro)
@@ -526,7 +526,7 @@ than or equal to that of policy **π** for all states.
 
     ![image23]
 
-- Let's populate some values for a hypothetical Markov decision process (MDP), where **S={s1, s2, s3}** and **A={a1, a2, a3}**.
+- Let's populate some values for a hypothetical Markov decision process (MDP), where **S = {s1, s2, s3}** and **A = {a1, a2, a3}**.
 - The optimal action-value function **q<sub>*</sub>** can be represented in a table
 - Select the entries that maximize the action-value function, for each row (or state).
 
