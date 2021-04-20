@@ -138,7 +138,7 @@ and the same algorithms that we used to play games can be adapted for **robotics
 A task is an instance of the reinforcement learning (RL) problem.
 
 ### Episodic Tasks
-- Reinforcemnt Learning Tasks with ***a well-defined ending point*** are called ***episodic tasks***
+- Reinforcement Learning Tasks with ***a well-defined ending point*** are called ***episodic tasks***
 - In this case, we refer to a complete sequence of interaction, from start to finish, as an ***episode***.
 - Episodic tasks come to an end whenever the agent reaches a ***terminal state***.
 - When the episode ends, the agent looks at the total amount of ***reward*** it received to ***figure out how well it did***. 
@@ -253,7 +253,7 @@ the goal is always the same. It's always to maximize cumulative reward.
 - The robot is equipped with arms to grab the cans and runs on a rechargeable battery.
 - There's a docking station set up in one corner of the room and
 the robot has to sit at the station if it needs to recharge its battery.
-- Robot to be able to decide for itself when it needs to recharge its battery.
+- The robot is be able to decide for itself when it needs to recharge its battery.
 
 ### Frame this as a reinforcement learning problem:
 - **Actions A**:
@@ -277,7 +277,7 @@ the robot has to sit at the station if it needs to recharge its battery.
     ![image10]
 
 ### One-Step Dynamics
-- At an arbitrary time step ttt, the agent-environment interaction has evolved as a sequence of states, actions, and rewards
+- At an arbitrary time step **t**, the agent-environment interaction has evolved as a sequence of states, actions, and rewards
 
     **(S<sub>0</sub>, A<sub>0</sub>, R<sub>1</sub>, S<sub>1</sub>, A<sub>1</sub>, …, R<sub>t−1</sub>, S<sub>t−1</sub>, A<sub>t−1</sub>, R<sub>t</sub>, S<sub>t</sub>, A<sub>t</sub>)**
 - When the environment responds to the agent at time step **t+1**, it considers **only** the state and action at the previous time step **(S<sub>t</sub>, A<sub>t</sub>)**. Prior states are not regarded by the environment.
