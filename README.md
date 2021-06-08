@@ -121,6 +121,18 @@ and the same algorithms that we used to play games can be adapted for **robotics
 
 ## Elements of Reinforcement Learning <a name="rl_elements"></a>  
 - ***Interaction*** between an active ***decision-making agent*** and its ***environment***, within which the agent seeks to achieve a ***goal*** despite uncertainty about its environment
+    - Deep reinforcement learning agents **learn from trial-and-error** --> at each time step: gain experience via (s,a,r',s')
+    - Deep reinforcement learning agents **learn from sequential feedback** --> temporal credit assignment problem
+    - Deep reinforcement learning agents **learn from evaluative feedback** --> exploration versus exploitation trade-off
+    - Deep reinforcement learning agents **learn from sampled feedback** --> function approximation
+        - Approximation of policies --> **policy-based** agents
+        - Approximation of value functions --> **value-based** agents
+        - Approximation of models --> **model-based** agents
+        - Approximation both policies and value functions --> **actor-critic** agents
+    - Deep reinforcement learning agents **use powerful non-linear function approximation**
+        - Decision Trees
+        - SVMs
+        - Neural Networks (most potent function approximations available, and their performance is often the best)
 - Four main subelements of a reinforcement learning system: 
     - a ***policy*** - propability of taking an action when in a certain state at a given time, or mapping from perceived states of the environment to actions to be taken when in those states, a set stimulus–response rules.
     - a ***reward*** signal - the agent’s sole objective is to maximize the total reward it receives over the long run. If an action selected by the policy is followed by low reward, then the policy may be changed to select some other action in that situation in the future.
@@ -606,9 +618,33 @@ Docstrings, DRY, PEP8
 
 Further Deep Reinforcement Learning References
 * [Very good summary of DQN](https://medium.com/@nisheed/udacity-deep-reinforcement-learning-project-1-navigation-d16b43793af5)
+* [An Introduction of Deep Reinforcemnt Learning](https://thomassimonini.medium.com/an-introduction-to-deep-reinforcement-learning-17a565999c0c)
 * [Cheatsheet](https://raw.githubusercontent.com/udacity/deep-reinforcement-learning/master/cheatsheet/cheatsheet.pdf)
 * [Reinforcement Learning Textbook](https://s3-us-west-1.amazonaws.com/udacity-drlnd/bookdraft2018.pdf)
 * [Reinforcement Learning Textbook - GitHub Repo to Python Examples](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction)
 * [Udacity DRL Github Repository](https://github.com/udacity/deep-reinforcement-learning)
 * [Open AI Gym - Installation Guide](https://github.com/openai/gym#installation)
 * [Deep Reinforcement Learning Nanodegree Links](https://docs.google.com/spreadsheets/d/19jUvEO82qt3itGP3mXRmaoMbVOyE6bLOp5_QwqITzaM/edit#gid=0)
+
+Important publications
+* [2004 Y. Ng et al., Autonomoushelicopterflightviareinforcementlearning --> Inverse Reinforcement Learning](https://people.eecs.berkeley.edu/~jordan/papers/ng-etal03.pdf)
+* [2004 Kohl et al., Policy Gradient Reinforcement Learning for FastQuadrupedal Locomotion --> Policy Gradient Methods](https://www.cs.utexas.edu/~pstone/Papers/bib2html-links/icra04.pdf)
+* [2013-2015, Mnih et al. Human-level control through deep reinforcementlearning --> DQN](https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf)
+* [2014, Silver et al., Deterministic Policy Gradient Algorithms --> DPG](http://proceedings.mlr.press/v32/silver14.html)
+* [2015, Lillicrap et al., Continuous control with deep reinforcement learning --> DDPG](https://arxiv.org/abs/1509.02971)
+* [2015, Schulman et al, High-Dimensional Continuous Control Using Generalized Advantage Estimation --> GAE](https://arxiv.org/abs/1506.02438)
+* [2016, Schulman et al., Benchmarking Deep Reinforcement Learning for Continuous Control --> TRPO and GAE](https://www.google.com/search?client=firefox-b-d&q=2016%2C+Schulman+et+al.)
+* [2017, PPO](https://openai.com/blog/openai-baselines-ppo/)
+* [2018, Bart-Maron et al., Distributed Distributional Deterministic Policy Gradients](https://openreview.net/forum?id=SyZipzbCb)
+* [2013, Sergey et al., Guided Policy Search --> GPS](https://graphics.stanford.edu/projects/gpspaper/gps_full.pdf)
+* [2015, van Hasselt et al., Deep Reinforcement Learning with Double Q-learning --> DDQN](https://arxiv.org/abs/1509.06461)
+* [1993, Truhn et al., Issues in Using Function Approximation for Reinforcement Learning](https://www.ri.cmu.edu/pub_files/pub1/thrun_sebastian_1993_1/thrun_sebastian_1993_1.pdf)
+* [2015, Schaul et al., Prioritized Experience Replay --> PER](https://arxiv.org/abs/1511.05952)
+* [2015, Wang et al., Dueling Network Architectures for Deep Reinforcement Learning](https://arxiv.org/abs/1511.06581)
+* [2016, Silver et al., Mastering the game of Go with deep neural networks and tree search](https://www.researchgate.net/publication/292074166_Mastering_the_game_of_Go_with_deep_neural_networks_and_tree_search)
+* [2017, Hessel et al. Rainbow: Combining Improvements in Deep Reinforcement Learning](https://arxiv.org/abs/1710.02298)
+* [2016, Mnih et al., Asynchronous Methods for Deep Reinforcement Learning](https://arxiv.org/abs/1602.01783)
+* [2017, Bellemare et al., A Distributional Perspective on Reinforcement Learning](https://arxiv.org/abs/1707.06887)
+* [2017, Fortunato et al., Noisy Networks for Exploration](https://arxiv.org/abs/1706.10295)
+* [2016 Wang et al., Sample Efficient Actor-Critic with Experience Replay --> ACER](https://arxiv.org/abs/1611.01224)
+
