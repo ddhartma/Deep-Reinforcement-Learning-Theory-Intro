@@ -57,7 +57,7 @@
 - [Further Links](#Further_Links)
 
 
-## Introduction <a name="what_is_reinforcement"></a>
+## Introduction <a name="intro"></a>
 - Reinforcement learning is **learning** what to do — **how to map situations to actions** — so as **to maximize a numerical reward** signal. The learner is not told which actions to take, but instead must discover which actions yield the most reward by trying them. (Sutton and Barto, [Reinforcement Learning: An Introduction](http://incompleteideas.net/book/the-book.html))
 - Deep reinforcement learning refers to approaches where the knowledge is represented with a deep neural network
 
