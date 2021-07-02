@@ -51,13 +51,13 @@
     - [Optimality](#Optimality)
     - [Action-Value Functions](#Action_Value_Functions)
     - [Optimal Policies](#Optimal_Policies)
-    
+
 - [Setup Instructions](#Setup_Instructions)
 - [Acknowledgments](#Acknowledgments)
 - [Further Links](#Further_Links)
 
 
-## Introduction <a name="intro"></a>
+## Introduction <a id="intro"></a>
 - Reinforcement learning is **learning** what to do — **how to map situations to actions** — so as **to maximize a numerical reward** signal. The learner is not told which actions to take, but instead must discover which actions yield the most reward by trying them. (Sutton and Barto, [Reinforcement Learning: An Introduction](http://incompleteideas.net/book/the-book.html))
 - Deep reinforcement learning refers to approaches where the knowledge is represented with a deep neural network
 
@@ -74,8 +74,8 @@ Examples:
 and the same algorithms that we used to play games can be adapted for **robotics**
     ![image1]
 
-## Overview <a name="overview"></a>
-- Foundations of Reinforcement Learning: 
+## Overview <a id="overview"></a>
+- Foundations of Reinforcement Learning:
     - How to define real-world problems as **Markov Decision Processes (MDPs)**
     - Classical methods such as **SARSA** and **Q-learning** to solve several environments in **OpenAI Gym**
     - **Tile coding** and **coarse coding** to expand the size of the problems
@@ -91,35 +91,35 @@ and the same algorithms that we used to play games can be adapted for **robotics
     - **Proximal Policy Optimization (PPO)**
     - **Advantage Actor-Critic (A2C)**
     - **Deep Deterministic Policy Gradients (DDPG)**
-    - **Evolution strategies** 
+    - **Evolution strategies**
     - **Hill climbing**
 - Multi-Agent Reinforcement Learning
     - Agents to become truly intelligent, they must be able to communicate with and learn from other agents
     - **Monte Carlo Tree Search (MCTS)**
 
-## Install Open AI Gym <a name="install_open_ai_gym"></a>
+## Install Open AI Gym <a id="install_open_ai_gym"></a>
 - [Installation Guide](https://github.com/openai/gym#installation)
 - It includes dozens of different environments for testing reinforcement learning agents
 - It was designed as a toolkit for developing and comparing reiforcement learning algorithms
 - It was developed to address the lack of benchmarks and standardization in RL research
 
-## Cheatsheet and TextBook <a name="cheat_text"></a> 
+## Cheatsheet and TextBook <a id="cheat_text"></a>
 - [Cheatsheet](https://raw.githubusercontent.com/udacity/deep-reinforcement-learning/master/cheatsheet/cheatsheet.pdf)
 - [Reinforcement Learning Textbook](https://s3-us-west-1.amazonaws.com/udacity-drlnd/bookdraft2018.pdf)
 - [Reinforcement Learning Textbook - GitHub Repo to Python Examples](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction)
-    
-## Udacity DRL Github Repository <a name="uda_git_repo"></a>  
+
+## Udacity DRL Github Repository <a id="uda_git_repo"></a>  
 - Switch to [Udacity DRL Github Repository](https://github.com/udacity/deep-reinforcement-learning)
 - To clone the repo use
     ```
     git clone https://github.com/udacity/deep-reinforcement-learning.git
     ```
-## Deep Reinforcement Learning Nanodegree Links <a name="uda_nano_drl_links"></a>
+## Deep Reinforcement Learning Nanodegree Links <a id="uda_nano_drl_links"></a>
 - Student-curated list of resources for [Deep Reinforcement Learning Nanodegree Links](https://docs.google.com/spreadsheets/d/19jUvEO82qt3itGP3mXRmaoMbVOyE6bLOp5_QwqITzaM/edit#gid=0)
 
-## The RL Framework: The Problem <a name="rl_frame_prob"></a> 
+## The RL Framework: The Problem <a id="rl_frame_prob"></a>
 
-## Elements of Reinforcement Learning <a name="rl_elements"></a>  
+## Elements of Reinforcement Learning <a id="rl_elements"></a>  
 - ***Interaction*** between an active ***decision-making agent*** and its ***environment***, within which the agent seeks to achieve a ***goal*** despite uncertainty about its environment
     - Deep reinforcement learning agents **learn from trial-and-error** --> at each time step: gain experience via (s,a,r',s')
     - Deep reinforcement learning agents **learn from sequential feedback** --> temporal credit assignment problem
@@ -133,31 +133,31 @@ and the same algorithms that we used to play games can be adapted for **robotics
         - Decision Trees
         - SVMs
         - Neural Networks (most potent function approximations available, and their performance is often the best)
-- Four main subelements of a reinforcement learning system: 
+- Four main subelements of a reinforcement learning system:
     - a ***policy*** - propability of taking an action when in a certain state at a given time, or mapping from perceived states of the environment to actions to be taken when in those states, a set stimulus–response rules.
     - a ***reward*** signal - the agent’s sole objective is to maximize the total reward it receives over the long run. If an action selected by the policy is followed by low reward, then the policy may be changed to select some other action in that situation in the future.
     - a ***value function*** - the value of a state is the total amount of reward an agent can expect to accumulate over the future, starting from that state. Rewards are in a sense primary, whereas values, as predictions of rewards, are secondary. Without rewards there could be no values, and the only purpose of estimating values is to achieve more reward. Nevertheless, it is values with which we are most concerned when making and evaluating decisions. Action choices are made based on value judgments. We seek actions that bring about states of highest value, not highest reward, because these actions obtain the greatest amount of reward for us over the long run. Unfortunately, it is much harder to determine values than it is to determine rewards. Rewards are basically given directly by the environment, but values must be estimated and re-estimated from the sequences of observations an agent makes over its entire lifetime
     - a ***model*** of the environment - a model allows inferences to be made about how the environment will behave. For example, given a state and action, the model might predict the resultant next state and next reward. Models are used for planning. Methods for solving reinforcement learning problems that use models and planning are called model-based methods. Simpler are model-free methods that are explicitly trial-and-error learners (almost the opposite of planning).
 
-## The Setting  <a name="setting"></a>
+## The Setting  <a id="setting"></a>
 - The reinforcement learning (RL) framework is characterized by an **agent** learning to **interact** with its **environment**.
 - At each time step, the agent receives the environment's **state** (the environment presents a situation to the agent), and the agent must choose an appropriate **action** in response. One time step later, the agent receives a **reward** (the environment indicates whether the agent has responded appropriately to the state) and a new **state**.
 - All agents have the goal to maximize **expected cumulative reward**, or the expected sum of rewards attained over all time steps.
 
     ![image2]
 
-## Episodic vs. Continuing Tasks <a name="episodic_continuous"></a>
+## Episodic vs. Continuing Tasks <a id="episodic_continuous"></a>
 A task is an instance of the reinforcement learning (RL) problem.
 
 ### Episodic Tasks
 - Reinforcement Learning Tasks with ***a well-defined ending point*** are called ***episodic tasks***
 - In this case, we refer to a complete sequence of interaction, from start to finish, as an ***episode***.
 - Episodic tasks come to an end whenever the agent reaches a ***terminal state***.
-- When the episode ends, the agent looks at the total amount of ***reward*** it received to ***figure out how well it did***. 
+- When the episode ends, the agent looks at the total amount of ***reward*** it received to ***figure out how well it did***.
 - Example: Playing chess
 - It's then able to start from scratch as if it has been completely reborn into the same environment but now with the ***added knowledge*** of what happened in its past life.
 - In this way, as time passes over its many lives, the agent makes better and better decisions.
-- Problem: Feedback is only delivered at the very end of the game. 
+- Problem: Feedback is only delivered at the very end of the game.
 - ***Sparse rewards***
 
 ### Continuing Tasks
@@ -168,12 +168,12 @@ A task is an instance of the reinforcement learning (RL) problem.
 while simultaneously interacting with the environment.
     ![image3]
 
-## The Reward Hypothesis <a name="reward_hypo"></a>
+## The Reward Hypothesis <a id="reward_hypo"></a>
 - All goals can be framed as the maximization of (expected) cumulative reward.
 
     ![image4]
 
-## Goals and Rewards <a name="goals_rewards"></a>
+## Goals and Rewards <a id="goals_rewards"></a>
 ### Goals
 - Google DeepMind addressed the problem of teaching a robot to walk.
 - They worked with a physical simulation of a humanoid robot and they
@@ -198,7 +198,7 @@ the agent also receives some positive reward if the humanoid has not yet fallen.
 - Episodic task: episode is terminated when robot falls
 
 ### Reward Strategy:
-- Of course, the robot can't focus just on 
+- Of course, the robot can't focus just on
     - walking fast,
     - or just on moving forward,
     - or only on walking smoothly,
@@ -210,10 +210,10 @@ all time steps towards its goal of maximizing expected cumulative reward.
 
     ![image5]
 
-## Cumulative Reward <a name="cum_reward"></a>
-- The Overall goal of the walking robot: 
-    - to stay walking forward for as long as possible 
-    - as quickly as possible 
+## Cumulative Reward <a id="cum_reward"></a>
+- The Overall goal of the walking robot:
+    - to stay walking forward for as long as possible
+    - as quickly as possible
     - while also exerting minimal effort.
 - Could the agent just **maximize the reward in each time step**? NO
 - The agent **cannot focus on individual time steps**, but it needs to **keep all time steps in mind**.
@@ -229,7 +229,7 @@ to gain some understanding of the complex effects its actions have on the enviro
 
     ![image6]
 
-## Discounted Return <a name="disc_return"></a> 
+## Discounted Return <a id="disc_return"></a>
 - **Rewards that come sooner should be valued more** highly, since those rewards are **more predictable**.
 - Use a **discount rate** for the expected return **to care about future time steps**.
 - The **larger the discaount rate** is, the more the agent cares about the **distant future**.
@@ -241,7 +241,7 @@ the goal is always the same. It's always to maximize cumulative reward.
     ![image7]
 
 - Here "Return" and "discounted return" is used interchangably. For an arbitrary time step t, both refer to
-    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle G_{t}=\sum _{k=0}^{\infty }\gamma ^{k}R_{t %2B k %2B 1}" width="180px"> 
+    <img src="https://render.githubusercontent.com/render/math?math=\displaystyle G_{t}=\sum _{k=0}^{\infty }\gamma ^{k}R_{t %2B k %2B 1}" width="180px">
 
     and
 
@@ -258,7 +258,7 @@ the goal is always the same. It's always to maximize cumulative reward.
 
     ![image8]
 
-## Markov Decision Process (MDP) <a name="mdp"></a>
+## Markov Decision Process (MDP) <a id="mdp"></a>
 
 ### The problem statement:
 - So consider a robot that's designed for picking up empty soda cans.
@@ -295,7 +295,7 @@ the robot has to sit at the station if it needs to recharge its battery.
 - When the environment responds to the agent at time step **t+1**, it considers **only** the state and action at the previous time step **(S<sub>t</sub>, A<sub>t</sub>)**. Prior states are not regarded by the environment.
 - How much reward the agent is collecting, has no effect on how the environment chooses to respond to the agent. Hence, the environment does not consider any of **{R<sub>0</sub>, …, R<sub>t</sub>}**.
 
-- Because of this, we can completely define how the environment decides the state and reward by specifying 
+- Because of this, we can completely define how the environment decides the state and reward by specifying
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle p(s^{'},r \mid s,a) =\P(S_{t %2B 1}, R_{t %2B 1}= r \mid S_{t} = s,A_{t}=a)" width="500px">
 
     for each possible **s′**, **r**, **s** and **a**. These conditional probabilities are said to specify the **one-step dynamics** of the environment.
@@ -303,22 +303,22 @@ the robot has to sit at the station if it needs to recharge its battery.
     ![image11]
 
 ### The Markow Decision Process (MDP) definition:
- 
+
   - ![image12]
 
-## Finite MDPs <a name="finite_mdps"></a> 
+## Finite MDPs <a id="finite_mdps"></a>
  - Use this [link](https://github.com/openai/gym/wiki/Table-of-environments) to use the available environments in OpenAI Gym
  - The environments are indexed by Environment Id, and each environment has corresponding **Observation Space**, **Action Space**, **Reward Range**, **tStepL**, **Trials**, and **rThresh**.
  - Every environment comes with first-class Space objects that describe the valid actions and observations.
     - The **Discrete space** allows a fixed range of non-negative numbers.
     - The **Box space** represents an n-dimensional box, so valid actions or observations will be an array of n numbers.
-- **Observation Space**: The observation space for the CartPole-v0 environment has type **Box(4,)**. Thus, the state at each time point is an array of 4 numbers. Check this [document](https://github.com/openai/gym/wiki/CartPole-v0). 
+- **Observation Space**: The observation space for the CartPole-v0 environment has type **Box(4,)**. Thus, the state at each time point is an array of 4 numbers. Check this [document](https://github.com/openai/gym/wiki/CartPole-v0).
 
     ![image13]
 
     Since the entry in the array corresponding to each of these indices can be any real number, the state space **S<sup>+</sup>** is infinite.
 
-    
+
 - **Action Space**: The action space for the CartPole-v0 environment has type **Discrete(2)**. Thus, at any time point, there are only two actions available to the agent. You can look up what each of these numbers represents in this document (note that it is the same document you used to look up the observation space!). After opening the page, scroll down to the description of the action space.
 
     ![image14]
@@ -331,7 +331,7 @@ the robot has to sit at the station if it needs to recharge its battery.
 - Thus for Cart-Pole-v0 there are infinite states, it is not a finite MDP.
 
 
-## The RL Framework: The Solution  <a name="rl_frame_sol"></a> 
+## The RL Framework: The Solution  <a id="rl_frame_sol"></a>
 - This lesson covers material in Chapter 3 (especially 3.5-3.6) of the [Reinforcement Learning Textbook](https://s3-us-west-1.amazonaws.com/udacity-drlnd/bookdraft2018.pdf).
 - Before we defined the problem via MDP
 - Now let's find a solution for this problem statement
@@ -340,7 +340,7 @@ was decided in along with the state that follows.
 
 
 
-## Policies <a name="Policies"></a>
+## Policies <a id="Policies"></a>
 - As long as the agent learns an appropriate action response to any environment state that it can observe, we have a solution to our problem.
 - This motivates the idea of a policy.
 - Deterministic policy: The simplest kind of policy is a mapping from the set of environment states to the set of possible actions. The deterministic policy would specify something
@@ -348,27 +348,27 @@ like whenever the battery is low, recharge it. And whenever the battery has a hi
 - Stochastic policy: will allow the agent to choose actions randomly.
   It is a mapping of a state S and action A and returns the probability that the agent takes action a while in state s. The stochastic policy does something more like whenever the battery is low, recharge it with 50 percent probability, wait where you are with 40 percent probability. And otherwise, search for cans. Whenever the battery is high, earch for cans with 90 percent probability. And otherwise, wait for a can.
 
-### A deterministic policy 
-- is a mapping 
+### A deterministic policy
+- is a mapping
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi : S  \rightarrow A" width="130px">
 
-- For each state 
-    
+- For each state
+
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle s \in S " width="70px">
 
-    it yields the action 
+    it yields the action
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle a \in A " width="70px">
 
     that the agent will choose while in state **s**.
 
-### A stochastic policy 
-- is a mapping 
+### A stochastic policy
+- is a mapping
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi : S  \rightarrow [0, 1]" width="160px">
 
-- For each state 
+- For each state
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle s \in S " width="70px">
 
@@ -376,7 +376,7 @@ like whenever the battery is low, recharge it. And whenever the battery has a hi
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle a \in A " width="70px">
 
-    it yields the probability 
+    it yields the probability
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi(a \mid s) " width="70px">
 
@@ -386,7 +386,7 @@ like whenever the battery is low, recharge it. And whenever the battery has a hi
 
 
 
-## The Gridworld Example <a name="grid_world_example"></a>
+## The Gridworld Example <a id="grid_world_example"></a>
 - In order to understand how to find the best policy consider this very small Gridworld Example and an agent who lives in it.
 - **Environment**: The world is primarily composed of nice patches of grass,
 but two out of the nine locations in the world have large mountains.
@@ -410,11 +410,11 @@ it just collects all of the reward along the way.
 
     ![image17]
 
-## State-Value Functions <a name="state_val_func"></a> 
+## State-Value Functions <a id="state_val_func"></a>
 
-- The state-value function for a policy **π**  is denoted **v<sub>π</sub>**. 
-- For each state 
-    
+- The state-value function for a policy **π**  is denoted **v<sub>π</sub>**.
+- For each state
+
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle s \in S " width="70px">
 
     it yields the expected return if the agent starts in state **s** and then uses the policy to choose its actions for all time steps.
@@ -425,10 +425,10 @@ it just collects all of the reward along the way.
 
     ![image18]
 
-## Bellman Equations <a name="Bellman_Equations"></a>
+## Bellman Equations <a id="Bellman_Equations"></a>
 - For value calculation you don't need to start your calculations from scratch every time. It turns out to be redundant effort.
 - The value function has a recursive property.
-- The Bellman expectation equation for **v<sub>π</sub>** is: 
+- The Bellman expectation equation for **v<sub>π</sub>** is:
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle v_{\pi}(s) \doteq \E_{\pi}[R_{t %2B 1} %2B \gamma v_{\pi}(S_{t %2B 1}) \mid S_t = s]" width="500px">
 
@@ -436,7 +436,7 @@ it just collects all of the reward along the way.
 
 - In total there are 4 Bellman Equations. See sections 3.5 and 3.6 of the [Reinforcement Learning Textbook](https://s3-us-west-1.amazonaws.com/udacity-drlnd/bookdraft2018.pdf). The Bellman equations are incredibly useful to the theory of MDPs.
 
-## Calculating Expectations <a name="calc_expectations"></a>
+## Calculating Expectations <a id="calc_expectations"></a>
 - **Deterministic  policy π**: the agent in state **s** selects action **π(s)**, and the Bellman Expectation Equation can be rewritten as the sum over two variables (**s′** and **r**):
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle v_{\pi}(s) = \sum _{s^{'} \in S^{%2B}, r \in R}^{} p(s^{'}, r \mid s, \pi(s))(r %2B \gamma v_{\pi}(s^{'}))" width="600px">
@@ -449,7 +449,7 @@ it just collects all of the reward along the way.
 
     In this case, we multiply the sum of the reward and discounted value of the next state **(r + γvπ(s′))** by its corresponding probability **π(a ∣ s)p(s',r | s,a)** and sum over all possibilities to yield the expected value.
 
-## Optimality <a name="Optimality"></a>
+## Optimality <a id="Optimality"></a>
 -  Look at any state in particular and compare the two value functions, the value function for a **π'** is always bigger
 than or equal to the value function for policy **π**.
 - So this says, for any state in the environment,
@@ -463,21 +463,21 @@ than or equal to that of policy **π** for all states.
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi^' \geq \pi" width="90px">
 
-    if and only if 
+    if and only if
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle v_{\pi^'}(s) \geq v_{\pi}(s)" width="200px">
 
-    for all 
+    for all
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle s \in S " width="70px">
 
-- An optimal policy **π<sub>∗</sub>** satisfies 
+- An optimal policy **π<sub>∗</sub>** satisfies
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi_{*} \geq \pi" width="100px">
 
-    for all policies **π**. 
+    for all policies **π**.
 
-- Some important notes: 
+- Some important notes:
     1. It is possible to take two policies, that are equally good, i.e. it's possible that they can't be compared.
     2. At least there must be one policy that's better than or equal to all other policies. We call this policy an **optimal policy** **π<sub>*</sub>**,
     3. An **optimal policy** **π<sub>*</sub>** is guaranteed to exist but it may not be unique.
@@ -486,22 +486,22 @@ than or equal to that of policy **π** for all states.
 
     ![image20]
 
-    
-## Action-Value Functions <a name="Action_Value_Functions"></a>
-- The action-value function for a policy **π** is denoted **q<sub>π</sub>**. 
-- For each state 
+
+## Action-Value Functions <a id="Action_Value_Functions"></a>
+- The action-value function for a policy **π** is denoted **q<sub>π</sub>**.
+- For each state
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle s \in S " width="70px">
-    
-    and action 
-     
+
+    and action
+
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi(a \mid s) " width="70px">
-    
-    it yields the expected return if the agent starts in state **s**,takes action **a**, and then follows the policy for all future time steps. That is, 
-    
-    
+
+    it yields the expected return if the agent starts in state **s**,takes action **a**, and then follows the policy for all future time steps. That is,
+
+
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle q_{\pi}(s,a) \doteq \E_{\pi}[G_{t} \mid S_t = s, A_t = a]" width="500px">
-    
+
 - We refer to **q<sub>π</sub>(s,a)** as the **value of taking action a in state s under a policy π** (or alternatively as the **value of the state-action pair s,a**).
 - All optimal policies have the same action-value function **q<sub>∗</sub>**, called the **optimal action-value function**.
 
@@ -511,20 +511,20 @@ than or equal to that of policy **π** for all states.
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle v_{\pi}(s) = q_{\pi}(s, \pi(s))" width="300px">
 
-    holds for all 
+    holds for all
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle s \in S" width="70px">
-    
+
     ![image22]
 
 
 
-## Optimal Policies <a name="Optimal_Policies"></a>
-- Once the agent determines the optimal action-value function **q<sub>∗</sub>**, it can quickly obtain an optimal policy π<sub>∗</sub> by setting 
+## Optimal Policies <a id="Optimal_Policies"></a>
+- Once the agent determines the optimal action-value function **q<sub>∗</sub>**, it can quickly obtain an optimal policy π<sub>∗</sub> by setting
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle \pi_{*}(s) = argmax_{a \in A(s)} q_{*}(s,a)" width="500px">
 
-    for all 
+    for all
 
     <img src="https://render.githubusercontent.com/render/math?math=\displaystyle s \in S" width="70px">
 
@@ -545,12 +545,12 @@ than or equal to that of policy **π** for all states.
     ![image24]
 
 
-## Setup Instructions <a name="Setup_Instructions"></a>
+## Setup Instructions <a id="Setup_Instructions"></a>
 The following is a brief set of instructions on setting up a cloned repository.
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Prerequisites: Installation of Python via Anaconda and Command Line Interaface <a name="Prerequisites"></a>
+### Prerequisites: Installation of Python via Anaconda and Command Line Interaface <a id="Prerequisites"></a>
 - Install [Anaconda](https://www.anaconda.com/distribution/). Install Python 3.7 - 64 Bit
 
 - Upgrade Anaconda via
@@ -564,7 +564,7 @@ $ conda upgrade --all
 $ export PATH="/path/to/anaconda/bin:$PATH"
 ```
 
-### Clone the project <a name="Clone_the_project"></a>
+### Clone the project <a id="Clone_the_project"></a>
 - Open your Command Line Interface
 - Change Directory to your project older, e.g. `cd my_github_projects`
 - Clone the Github Project inside this folder with Git Bash (Terminal) via:
@@ -601,10 +601,10 @@ pyspark = 2.4.3
 $ conda env list
 ```
 
-## Acknowledgments <a name="Acknowledgments"></a>
+## Acknowledgments <a id="Acknowledgments"></a>
 * This project is part of the Udacity Nanodegree program 'Data Science'. Please check this [link](https://www.udacity.com) for more information.
 
-## Further Links <a name="Further_Links"></a>
+## Further Links <a id="Further_Links"></a>
 
 Git/Github
 * [GitFlow](https://datasift.github.io/gitflow/IntroducingGitFlow.html)
@@ -647,4 +647,3 @@ Important publications
 * [2017, Bellemare et al., A Distributional Perspective on Reinforcement Learning](https://arxiv.org/abs/1707.06887)
 * [2017, Fortunato et al., Noisy Networks for Exploration](https://arxiv.org/abs/1706.10295)
 * [2016 Wang et al., Sample Efficient Actor-Critic with Experience Replay --> ACER](https://arxiv.org/abs/1611.01224)
-
